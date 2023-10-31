@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../@interfaces/player';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PlayersService } from '../@services/players.service';
+import { GamesService } from '../@services/games.service';
 
 @Component({
   selector: 'app-registration',
@@ -26,7 +29,12 @@ export class RegistrationComponent implements OnInit {
     return <FormArray>this.registrationForm.get('players')
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+      private fb: FormBuilder,
+      private router: Router,
+      private playersService: PlayersService,
+      private gamesService: GamesService
+    ) {
     this.registrationForm = this.fb.group({
       players: this.fb.array([this.buildPlayer()]),
     })
@@ -53,6 +61,7 @@ export class RegistrationComponent implements OnInit {
 
   registrationPlayers() {
     console.log(this.registrationForm.value.players)
+    this.router.navigate(['/games-list'])
   }
 
 }

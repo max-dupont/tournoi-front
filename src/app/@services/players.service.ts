@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class PlayersService {
 
   constructor() { }
+
+  getAll() {}
+  addOne() {}
+  deleteAll() {}
 }
