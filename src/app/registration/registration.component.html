@@ -1,21 +1,27 @@
 <form (ngSubmit)="registrationPlayers()" [formGroup]="registrationForm">
-    <table>
-        <thead>
-            <tr>
-                <th>N°</th>
-                <th>NOM</th>
-                <th>Prénom</th>
-                <th>Licence</th>
-            </tr>
-        </thead>
-        <tbody formArrayName="players" *ngFor="let player of players.controls; let i = index">
-            <tr [formGroupName]="i">
-                <td>{{ i+1 }}</td>
-                <td><input type="text" formControlName="lastname" id="lastname{{ i }}"/></td>
-                <td><input type="text" formControlName="firstname" id="firstname{{ i }}"/></td>
-                <td><input type="text" formControlName="license" id="license{{ i }}"/></td>
-            </tr>
-        </tbody>
-    </table>
-    <button type="submit" [title]="registrationForm.valid ? 'Valider les participants' : 'Veuillez vérifier la saisie des participants'" [disabled]="!registrationForm.valid">Valider</button>
+    <div class="flex">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>NOM</th>
+                        <th>Prénom</th>
+                        <th>Licence</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="players" *ngFor="let player of players.controls; let i = index">
+                    <tr [formGroupName]="i">
+                        <td>{{ i+1 }}</td>
+                        <td><input type="text" formControlName="lastname" id="lastname{{ i }}"/></td>
+                        <td><input type="text" formControlName="firstname" id="firstname{{ i }}"/></td>
+                        <td><input type="text" formControlName="license" id="license{{ i }}"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button type="submit" [title]="registrationForm.valid ? 'Valider les participants' : 'Veuillez vérifier la saisie des participants'" [disabled]="!registrationForm.valid">Valider</button>
+        </div>
+    </div>
 </form>
