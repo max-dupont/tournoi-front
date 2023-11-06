@@ -19,7 +19,9 @@ export class PlayersService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() {}
+  getAll() {
+    return this.http.get<Player[]>(this.playersUrl, this.httpOptions);
+  }
   addOne(player: Player) {
     return this.http.post<Player[]>(this.playersUrl, player, this.httpOptions);
   }

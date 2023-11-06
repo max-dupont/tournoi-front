@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
         }
       )
     });
-    this.gamesService.addOne()
+    this.gamesService.addAll(this.nbPlayers)
     this.router.navigate(['/games-list'])
   }
 
