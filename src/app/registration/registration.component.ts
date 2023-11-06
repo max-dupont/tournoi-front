@@ -61,6 +61,14 @@ export class RegistrationComponent implements OnInit {
 
   registrationPlayers() {
     console.log(this.registrationForm.value.players)
+    this.registrationForm.value.players.forEach((player: Player) => {
+      this.playersService.addOne(player).subscribe({
+          next: (success) => console.log(success),
+          error: (error) => console.log(error)
+        }
+      )
+    });
+    this.gamesService.addOne()
     this.router.navigate(['/games-list'])
   }
 

@@ -9,6 +9,7 @@ import { GamesTableComponent } from './games-table/games-table.component';
 import { GamesListComponent } from './games-list/games-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { appRoutes } from './routes';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
