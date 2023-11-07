@@ -1,4 +1,6 @@
 # TournoiFront
-- Excel Importation
+- Datas importations
 - Stats
-- add tables
+- Add games tables
+- Datas exportations
+- Collapse towers
