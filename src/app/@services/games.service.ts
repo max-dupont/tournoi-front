@@ -29,17 +29,19 @@ export class GamesService {
   addAll(nbPlayers: number) {
     this.playersService.getAll().subscribe({
       next: players => {
-        for (let i = 0; i < nbPlayers/2; i++) {
-          const game: Game = {
-            tower: 1,
-            number: i+1,
-            first_player: players[i].id,
-            second_player: players[nbPlayers-i-1].id
-          }
-          this.addOne(game).subscribe({
-            next: success => console.log(success),
-            error: error => console.log(error)
-          })
+        for (let j = 0; j < Math.log2(nbPlayers); j++) {
+          for (let i = 0; i < nbPlayers/2; i++) {
+            const game: Game = {
+              tower: j+1,
+              number: i+1,
+              first_player: j=== 0 ? players[i].id : undefined,
+              second_player: j===0 ? players[nbPlayers-i-1].id : undefined
+            }
+            this.addOne(game).subscribe({
+              next: success => console.log(success),
+              error: error => console.log(error)
+            })
+          }          
         }
       },
       error: error => console.log(error)
@@ -49,7 +51,7 @@ export class GamesService {
     return this.http.post<Game[]>(this.gamesUrl, game, this.httpOptions);
   }
   updateOne(game: Game) {
-    return this.http.put<Game>(`${this.gamesUrl}/${game.id}`, game, this.httpOptions);
+    return this.http.put<Game>(this.gamesUrl, game, this.httpOptions);
   }
   deleteAll() {}
 }

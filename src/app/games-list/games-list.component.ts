@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from '../@interfaces/game';
 import { GamesService } from '../@services/games.service';
+import { forkJoin } from 'rxjs';
+import { TowersService } from '../@services/towers.service';
 
 @Component({
   selector: 'app-games-list',
@@ -10,9 +12,16 @@ import { GamesService } from '../@services/games.service';
 export class GamesListComponent implements OnInit {
   public games: Game[] = []
 
-  constructor(private gamesService: GamesService) {}
+  constructor(
+    private gamesService: GamesService,
+    private towersService: TowersService
+  ) {}
   
   ngOnInit(): void {
+    this.initGames()
+  }
+  
+  initGames() {
     this.gamesService.getAll().subscribe({
       next: success => this.games = success,
       error: error => console.log(error)
@@ -21,15 +30,19 @@ export class GamesListComponent implements OnInit {
 
   selectWinner(game: Game, playerId: number | undefined) {
     if (playerId) {
-      this.gamesService.updateOne({...game, winner: playerId}).subscribe({
+      this.towersService.updateWinner({...game, winner: playerId}).subscribe({
         next: success => {
           let gameIndex = this.games.indexOf(game)
           this.games[gameIndex] = success
+          if (game.tower === 1) {
+            this.towersService.updateTowerOne(success, playerId).subscribe({
+              next: success => this.initGames(),
+              error: error => console.log(error)
+            })
+          }
         },
         error: error => console.log(error)
       })
-    } else {
-      console.error('ERROR : No playerId')
     }
   }
 }

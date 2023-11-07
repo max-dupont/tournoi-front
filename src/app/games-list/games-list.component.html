@@ -17,16 +17,20 @@
             <tr *ngFor="let game of games">
                 <td class="center-column">{{ game.tower }}</td>
                 <td class="center-column">{{ game.number }}</td>
-                <td 
-                    class="select-winner"
-                    [ngClass]="game.first_player===game.winner ? 'winner' : game.winner ? 'looser' : ''"
+                <td
+                    [ngClass]="{
+                        'winner' : game.winner && game.first_player===game.winner,
+                        'loser' : game.winner && game.first_player!==game.winner,
+                        'select-winner' : game.first_player && game.second_player}"
                     (click)="selectWinner(game, game.first_player)"
                 >
                     {{ game.first_player_name }}
                 </td>
-                <td 
-                    class="select-winner"
-                    [ngClass]="game.second_player===game.winner ? 'winner' : game.winner ? 'looser' : ''"
+                <td
+                [ngClass]="{
+                    'winner' : game.winner && game.second_player===game.winner,
+                    'loser' : game.winner && game.second_player!==game.winner,
+                    'select-winner' : game.second_player && game.second_player}"
                     (click)="selectWinner(game, game.second_player)"
                 >
                     {{ game.second_player_name }}
