@@ -15,8 +15,8 @@
                 <th>Vainqueur</th>
             </tr>
             <tr *ngFor="let game of games">
-                <td>{{ game.tower }}</td>
-                <td>{{ game.number }}</td>
+                <td class="center-column">{{ game.tower }}</td>
+                <td class="center-column">{{ game.number }}</td>
                 <td 
                     class="select-winner"
                     [ngClass]="game.first_player===game.winner ? 'winner' : game.winner ? 'looser' : ''"
@@ -31,7 +31,7 @@
                 >
                     {{ game.second_player_name }}
                 </td>
-                <td>{{ game.winner }}</td>
+                <td class="center-column">{{ game.winner }}</td>
             </tr>
         </table>
     </div>

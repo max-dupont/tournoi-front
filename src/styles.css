@@ -11,3 +11,7 @@ html {
     flex-direction: column;
     margin: auto;
 }
+
+.center-column {
+    text-align: center;
+}

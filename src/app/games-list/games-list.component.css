@@ -7,6 +7,10 @@ h1 {
     margin-bottom: 0;
 }
 
+table {
+    width: 800px;
+}
+
 .select-winner {
     cursor: pointer;
     transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
