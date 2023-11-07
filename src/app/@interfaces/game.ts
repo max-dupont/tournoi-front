@@ -1,4 +1,5 @@
 export interface Game {
+    id?: number
     tower: number,
     number: number,
     first_player?: number,

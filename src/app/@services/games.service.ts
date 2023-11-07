@@ -23,7 +23,9 @@ export class GamesService {
     private playersService: PlayersService
   ) { }
 
-  getAll() {}
+  getAll() {
+    return this.http.get<Game[]>(this.gamesUrl, this.httpOptions);
+  }
   addAll(nbPlayers: number) {
     this.playersService.getAll().subscribe({
       next: players => {
@@ -46,6 +48,8 @@ export class GamesService {
   addOne(game: Game) {
     return this.http.post<Game[]>(this.gamesUrl, game, this.httpOptions);
   }
-  updateOne() {}
+  updateOne(game: Game) {
+    return this.http.put<Game>(`${this.gamesUrl}/${game.id}`, game, this.httpOptions);
+  }
   deleteAll() {}
 }

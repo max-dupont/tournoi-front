@@ -1,1 +1,41 @@
-<p>games-list works!</p>
+<div class="flex">
+    <div>
+        <h1>Liste des matchs</h1>
+    </div>
+    <div>
+        <h5>Cliquez sur le vainqueur du match</h5>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Tour</th>
+                <th>Numéro</th>
+                <th>Joueur 1</th>
+                <th>Joueur 2</th>
+                <th>Vainqueur</th>
+            </tr>
+            <tr *ngFor="let game of games">
+                <td>{{ game.tower }}</td>
+                <td>{{ game.number }}</td>
+                <td 
+                    class="select-winner"
+                    [ngClass]="game.first_player===game.winner ? 'winner' : game.winner ? 'looser' : ''"
+                    (click)="selectWinner(game, game.first_player)"
+                >
+                    {{ game.first_player_name }}
+                </td>
+                <td 
+                    class="select-winner"
+                    [ngClass]="game.second_player===game.winner ? 'winner' : game.winner ? 'looser' : ''"
+                    (click)="selectWinner(game, game.second_player)"
+                >
+                    {{ game.second_player_name }}
+                </td>
+                <td>{{ game.winner }}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <!-- <button type="submit">Valider</button> -->
+    </div>
+</div>
