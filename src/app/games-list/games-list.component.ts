@@ -39,6 +39,9 @@ export class GamesListComponent implements OnInit {
           }
           if (game.tower === 2) {
             this.updateTowerTwoGames(success, playerId)
+          } 
+          if (game.tower === 3) {
+            this.updateLastTowerGames(success, playerId)
           }
         },
         error: error => console.log(error)
@@ -55,6 +58,13 @@ export class GamesListComponent implements OnInit {
 
   updateTowerTwoGames(game: Game, winner: number | undefined) {
     this.towersService.updateTowerTwo(game, winner).subscribe({
+      next: success => this.initGames(),
+      error: error => console.log(error)
+    })
+  }
+
+  updateLastTowerGames(game: Game, winner: number | undefined) {
+    this.towersService.updateLastTower(game, winner).subscribe({
       next: success => this.initGames(),
       error: error => console.log(error)
     })

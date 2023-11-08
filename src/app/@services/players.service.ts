@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../@interfaces/player';
+import { Player, PlayerRanking } from '../@interfaces/player';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -24,6 +24,9 @@ export class PlayersService {
   }
   addOne(player: Player) {
     return this.http.post<Player[]>(this.playersUrl, player, this.httpOptions);
+  }
+  updateOne(player: PlayerRanking) {
+    return this.http.put<PlayerRanking>(this.playersUrl, player, this.httpOptions);
   }
   deleteAll() {}
 }
