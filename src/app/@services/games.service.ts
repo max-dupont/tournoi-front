@@ -3,6 +3,7 @@ import { Game } from '../@interfaces/game';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PlayersService } from './players.service';
 import { Player } from '../@interfaces/player';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class GamesService {
 
   constructor(
     private http: HttpClient,
-    private playersService: PlayersService
+    private playersService: PlayersService,
+    private router: Router
   ) { }
 
   getAll() {
@@ -44,7 +46,8 @@ export class GamesService {
           }          
         }
       },
-      error: error => console.log(error)
+      error: error => console.log(error),
+      complete: () => this.router.navigate(['/games-list'])
     })
   }
   addOne(game: Game) {
