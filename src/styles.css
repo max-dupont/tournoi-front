@@ -4,6 +4,30 @@ html {
     font-family: 'Cambo';
 }
 
+button {
+    background-color: lightblue;
+    border: 3px solid green;
+    border-radius: 3px;
+    color: green;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover:disabled {
+        background-color: red;
+        box-shadow: 0 0 40px 40px red inset;
+        border: 3px solid red;
+        color: white;
+        cursor: default;
+    }
+    &:hover {
+        background-color: lightblue;
+        box-shadow: 0 0 40px 40px green inset;
+        color: white;
+        cursor: pointer;
+    }
+
+}
+
 .flex {
     display: flex;
     justify-content: center;

@@ -1,0 +1,19 @@
+table {
+    width: 800px;
+}
+
+.ranking {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.gold {
+    background-color: gold;
+}
+.silver {
+    background-color: silver;
+}
+.bronze {
+    background-color: brown;
+}

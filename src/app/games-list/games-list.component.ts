@@ -3,6 +3,7 @@ import { Game } from '../@interfaces/game';
 import { GamesService } from '../@services/games.service';
 import { forkJoin } from 'rxjs';
 import { TowersService } from '../@services/towers.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-games-list',
@@ -14,7 +15,8 @@ export class GamesListComponent implements OnInit {
 
   constructor(
     private gamesService: GamesService,
-    private towersService: TowersService
+    private towersService: TowersService,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
@@ -68,6 +70,10 @@ export class GamesListComponent implements OnInit {
       next: success => this.initGames(),
       error: error => console.log(error)
     })
+  }
+
+  getFinalRanking() {
+    this.router.navigate(['/ranking'])
   }
 
 }

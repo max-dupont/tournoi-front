@@ -3,6 +3,7 @@ export interface Player {
     lastname: string,
     firstname: string,
     license: string,
+    final_place?: number
 }
 
 export interface PlayerRanking {

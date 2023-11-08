@@ -1,1 +1,29 @@
-<p>ranking works!</p>
+<div class="flex">
+    <div>
+        <h1>Classement</h1>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>License</th>
+            </tr>
+            <tr *ngFor="let player of players">
+                <td class="center-column ranking"
+                [ngClass]="{
+                    'gold' : player.final_place === 1,
+                    'silver' : player.final_place === 2,
+                    'bronze' : player.final_place === 3}"
+                >
+                    {{ player.final_place }}
+                </td>
+                <td class="center-column">{{ player.firstname }}</td>
+                <td class="center-column">{{ player.lastname }}</td>
+                <td class="center-column">{{ player.license }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
