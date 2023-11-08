@@ -35,14 +35,29 @@ export class GamesListComponent implements OnInit {
           let gameIndex = this.games.indexOf(game)
           this.games[gameIndex] = success
           if (game.tower === 1) {
-            this.towersService.updateTowerOne(success, playerId).subscribe({
-              next: success => this.initGames(),
-              error: error => console.log(error)
-            })
+            this.updateTowerOneGames(success, playerId)
+          }
+          if (game.tower === 2) {
+            this.updateTowerTwoGames(success, playerId)
           }
         },
         error: error => console.log(error)
       })
     }
   }
+
+  updateTowerOneGames(game: Game, winner: number | undefined) {
+    this.towersService.updateTowerOne(game, winner).subscribe({
+      next: success => this.initGames(),
+      error: error => console.log(error)
+    })
+  }
+
+  updateTowerTwoGames(game: Game, winner: number | undefined) {
+    this.towersService.updateTowerTwo(game, winner).subscribe({
+      next: success => this.initGames(),
+      error: error => console.log(error)
+    })
+  }
+
 }
