@@ -40,6 +40,6 @@
         </table>
     </div>
     <div>
-        <button *ngIf="games[games.length-1]?.winner" (click)="getFinalRanking()">Classement</button>
+        <button *ngIf="showRanking" (click)="getFinalRanking()">Classement</button>
     </div>
 </div>

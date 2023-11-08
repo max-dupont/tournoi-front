@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class GamesListComponent implements OnInit {
   public games: Game[] = []
+  public showRanking = false
 
   constructor(
     private gamesService: GamesService,
@@ -21,8 +22,9 @@ export class GamesListComponent implements OnInit {
   
   ngOnInit(): void {
     this.initGames()
+    this.checkNbWinners()
   }
-  
+
   initGames() {
     this.gamesService.getAll().subscribe({
       next: success => this.games = success,
@@ -46,9 +48,16 @@ export class GamesListComponent implements OnInit {
             this.updateLastTowerGames(success, playerId)
           }
         },
-        error: error => console.log(error)
+        error: error => console.log(error),
+        complete: () => this.checkNbWinners()
       })
     }
+  }
+
+  checkNbWinners() {
+    let nbWinners = 0
+    this.games.forEach(game => nbWinners += game.winner ? 1 : 0);
+    this.showRanking = nbWinners === this.games.length
   }
 
   updateTowerOneGames(game: Game, winner: number | undefined) {
