@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlayersService } from '../@services/players.service';
 import { GamesService } from '../@services/games.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-registration',
@@ -33,9 +34,11 @@ export class RegistrationComponent implements OnInit {
       private fb: FormBuilder,
       private router: Router,
       private playersService: PlayersService,
-      private gamesService: GamesService
+      private gamesService: GamesService,
+      private cookieService: CookieService
     ) {
     this.registrationForm = this.fb.group({
+      rooms: [{value: 4, disabled: false}, Validators.required],
       players: this.fb.array([this.buildPlayer()]),
     })
   }
@@ -45,6 +48,7 @@ export class RegistrationComponent implements OnInit {
       this.addPlayer()
       this.players.patchValue(this.mockPlayers)
     }
+    this.cookieService.set('Rooms', this.registrationForm.value.rooms)
   }
 
   buildPlayer(): FormGroup {

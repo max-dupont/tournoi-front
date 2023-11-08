@@ -21,6 +21,16 @@
                         <td><input type="text" formControlName="license" id="license{{ i }}"/></td>
                     </tr>
                 </tbody>
+                <tbody>
+                    <tr class="rooms-column" >
+                        <td colspan="3">Tables disponibles : </td>
+                        <td>
+                            <select formControlName="rooms" id="rooms">
+                                <option [ngValue]="4" selected>4</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div>
