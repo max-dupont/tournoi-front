@@ -5,3 +5,4 @@
 - Datas exportations
 - Collapse towers
 - Control all winner games before show ranking
+- Choose nbPlayers
