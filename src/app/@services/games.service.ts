@@ -56,5 +56,7 @@ export class GamesService {
   updateOne(game: Game) {
     return this.http.put<Game>(this.gamesUrl, game, this.httpOptions);
   }
-  deleteAll() {}
+  deleteAll() {
+    return this.http.delete(this.gamesUrl, this.httpOptions);
+  }
 }

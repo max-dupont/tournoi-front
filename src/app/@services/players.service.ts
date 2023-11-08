@@ -28,5 +28,7 @@ export class PlayersService {
   updateOne(player: PlayerRanking) {
     return this.http.put<PlayerRanking>(this.playersUrl, player, this.httpOptions);
   }
-  deleteAll() {}
+  deleteAll() {
+    return this.http.delete(this.playersUrl, this.httpOptions);
+  }
 }

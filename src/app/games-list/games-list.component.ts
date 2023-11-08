@@ -57,7 +57,7 @@ export class GamesListComponent implements OnInit {
   checkNbWinners() {
     let nbWinners = 0
     this.games.forEach(game => nbWinners += game.winner ? 1 : 0);
-    this.showRanking = nbWinners === this.games.length
+    this.showRanking = nbWinners > 0 && nbWinners === this.games.length
   }
 
   updateTowerOneGames(game: Game, winner: number | undefined) {
