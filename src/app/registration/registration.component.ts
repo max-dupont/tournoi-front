@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PlayersService } from '../@services/players.service';
 import { GamesService } from '../@services/games.service';
 import { CookieService } from 'ngx-cookie-service';
+import { RoomsService } from '../@services/rooms.service';
 
 @Component({
   selector: 'app-registration',
@@ -35,7 +36,8 @@ export class RegistrationComponent implements OnInit {
       private router: Router,
       private playersService: PlayersService,
       private gamesService: GamesService,
-      private cookieService: CookieService
+      private cookieService: CookieService,
+      private roomsService: RoomsService
     ) {
     this.registrationForm = this.fb.group({
       rooms: [{value: 4, disabled: false}, Validators.required],
@@ -72,6 +74,12 @@ export class RegistrationComponent implements OnInit {
         }
       )
     });
+    for (let i = 1; i <= this.registrationForm.value.rooms; i++) {
+      this.roomsService.addOne({number: i}).subscribe({
+        next: success => console.log(success)
+      })
+    }
+    
     this.gamesService.addAll(this.nbPlayers)
   }
 

@@ -12,7 +12,7 @@
                 <th>Numéro</th>
                 <th>Joueur 1</th>
                 <th>Joueur 2</th>
-                <th>Vainqueur</th>
+                <th>Table</th>
             </tr>
             <tr *ngFor="let game of games">
                 <td class="center-column">{{ game.tower }}</td>
@@ -35,7 +35,7 @@
                 >
                     {{ game.second_player_name }}
                 </td>
-                <td class="center-column">{{ game.winner }}</td>
+                <td class="center-column" disabled="game.winner">{{ game.room_number }}</td>
             </tr>
         </table>
     </div>

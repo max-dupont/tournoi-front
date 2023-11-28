@@ -6,5 +6,7 @@ export interface Game {
     first_player_name?: string,
     second_player?: number,
     second_player_name?: string,
-    winner?: number
+    winner?: number,
+    room?: number,
+    room_number?: number
 }

@@ -3,6 +3,7 @@ import { Player } from '../@interfaces/player';
 import { PlayersService } from '../@services/players.service';
 import { Router } from '@angular/router';
 import { GamesService } from '../@services/games.service';
+import { RoomsService } from '../@services/rooms.service';
 
 @Component({
   selector: 'app-ranking',
@@ -15,6 +16,7 @@ export class RankingComponent implements OnInit{
   constructor(
     private playersService: PlayersService,
     private gamesService: GamesService,
+    private roomsService: RoomsService,
     private router: Router
   ) {}
 
@@ -29,9 +31,14 @@ export class RankingComponent implements OnInit{
     this.gamesService.deleteAll().subscribe({
       next: success => {
         this.playersService.deleteAll().subscribe({
-          next: success => console.log(success),
-          error: error => console.log(error),
-          complete: () => this.router.navigate(['/'])
+          next: success => {
+            this.roomsService.deleteAll().subscribe({
+              next: success => console.log(success),
+              error: error => console.log(error),
+              complete: () => this.router.navigate(['/'])
+            })
+          },
+          error: error => console.log(error)
         })
       },
       error: error => console.log(error)
