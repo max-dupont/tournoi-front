@@ -5,6 +5,8 @@ import { forkJoin } from 'rxjs';
 import { TowersService } from '../@services/towers.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Room } from '../@interfaces/room';
+import { RoomsService } from '../@services/rooms.service';
 
 @Component({
   selector: 'app-games-list',
@@ -13,19 +15,47 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class GamesListComponent implements OnInit {
   public games: Game[] = []
+  public rooms: Room[] = []
   public showRanking = false
+  public roomsAvailables: number = 0
 
   constructor(
     private gamesService: GamesService,
     private towersService: TowersService,
+    private roomsService: RoomsService,
     private router: Router,
     private cookieService: CookieService
   ) {}
   
   ngOnInit(): void {
     this.initGames()
+    this.initRooms()
     this.checkNbWinners()
     // console.log('Rooms : ', this.cookieService.get('Rooms'))
+  }
+  
+  initRooms() {
+    this.roomsService.getAll().subscribe({
+      next: success => {
+        this.rooms = success
+        this.rooms.forEach(room => {
+          this.roomsAvailables += room.available ? 1 : 0
+        });
+      },
+      error: error => console.log(error)
+    })
+  }
+
+  selectRoom(game: Game, room_id: string) {
+    this.gamesService.updateOne({...game, room: +room_id}).subscribe({
+      next: success => {
+        this.roomsService.updateOne({id: +room_id, available: false}).subscribe({
+          next: success => console.log(success),
+          error: error => console.log(error)
+        })
+      },
+      error: error => console.log(error)
+    })
   }
 
   initGames() {
@@ -40,15 +70,15 @@ export class GamesListComponent implements OnInit {
       this.towersService.updateWinner({...game, winner: playerId}).subscribe({
         next: success => {
           let gameIndex = this.games.indexOf(game)
-          this.games[gameIndex] = success
+          this.games[gameIndex] = success[0]
           if (game.tower === 1) {
-            this.updateTowerOneGames(success, playerId)
+            this.updateTowerOneGames(success[0], playerId)
           }
           if (game.tower === 2) {
-            this.updateTowerTwoGames(success, playerId)
+            this.updateTowerTwoGames(success[0], playerId)
           } 
           if (game.tower === 3) {
-            this.updateLastTowerGames(success, playerId)
+            this.updateLastTowerGames(success[0], playerId)
           }
         },
         error: error => console.log(error),

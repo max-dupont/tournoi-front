@@ -3,6 +3,7 @@ import { Game } from '../@interfaces/game';
 import { GamesService } from './games.service';
 import { forkJoin } from 'rxjs';
 import { PlayersService } from './players.service';
+import { RoomsService } from './rooms.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class TowersService {
 
   constructor(
     private gamesService:GamesService,
-    private playersService: PlayersService
+    private playersService: PlayersService,
+    private roomsService: RoomsService
   ) { }
 
   getLoser(game: Game, winner: number | undefined) {
@@ -65,7 +67,7 @@ export class TowersService {
   }
 
   updateWinner(game: Game) {
-    return this.gamesService.updateOne(game)
+    return forkJoin([this.gamesService.updateOne(game), this.roomsService.updateOne({id: game.room, number: game.room_number as number, available: true})])
   }
 
 }

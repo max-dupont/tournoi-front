@@ -35,7 +35,12 @@
                 >
                     {{ game.second_player_name }}
                 </td>
-                <td class="center-column" disabled="game.winner">{{ game.room_number }}</td>
+                <td class="center-column" disabled="game.winner">
+                    <select #currentRoom *ngIf="rooms.length > 0" [disabled]="roomsAvailables === 0 || game.winner" (change)="selectRoom(game, currentRoom.value)">
+                        <option value="0" disabled [selected]="!game.room" ></option>
+                        <option *ngFor="let room of rooms" id="rooms{{game.id}}" value="{{room.id}}" [selected]="game.room_number === room.number" [disabled]="!room.available" >{{ room.number }}</option>
+                    </select>
+                </td>
             </tr>
         </table>
     </div>

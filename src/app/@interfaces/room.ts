@@ -1,5 +1,5 @@
 export interface Room {
     id?: number,
-    number: number,
+    number?: number,
     available?: boolean
 }

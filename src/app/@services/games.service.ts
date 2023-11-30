@@ -45,7 +45,12 @@ export class GamesService {
                   room: j===0 ? rooms[i].id : undefined
                 }
                 this.addOne(game).subscribe({
-                  next: success => console.log(success),
+                  next: game => {
+                    this.roomsService.updateOne({...rooms[i], available: false}).subscribe({
+                      next: success => console.log(success),
+                      error: error => console.log(error)
+                    })
+                  },
                   error: error => console.log(error)
                 })
               }          
