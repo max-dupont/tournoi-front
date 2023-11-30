@@ -48,7 +48,8 @@ export class GamesService {
                   next: game => {
                     this.roomsService.updateOne({...rooms[i], available: false}).subscribe({
                       next: success => console.log(success),
-                      error: error => console.log(error)
+                      error: error => console.log(error),
+                      complete: () => this.router.navigate(['/games-list'])
                     })
                   },
                   error: error => console.log(error)
@@ -57,11 +58,9 @@ export class GamesService {
             }
           },
           error: error => console.log(error)
-        })
-        
-      } ,
+        }) 
+      },
       error: error => console.log(error),
-      complete: () => this.router.navigate(['/games-list'])
     })
   }
   addOne(game: Game) {
